@@ -357,10 +357,10 @@ const MapComponent = () => {
           ref={mapRef}
           attributionControl={false}
         >
-          <TileLayer
-            url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=86597fae-b145-431b-9aa5-0aa431f20c84"
-            attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          />
+<TileLayer
+  url="https://tiles.openfreemap.org/styles/liberty/{z}/{x}/{y}.png"
+  attribution='&copy; <a href="https://openfreemap.org/">OpenFreeMap</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+/>
           <MapEvents onMapRightClick={handleMapRightClick}>
             {posts.map((post) => (
               <PostMarker
