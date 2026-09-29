@@ -1,0 +1,31 @@
+services:
+  backend:
+    build:
+      context: ./Backend
+    container_name: ekzamen_backend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/posts.db
+    volumes:
+      - ./data:/app/data
+    networks:
+      - ekzamen_net
+    restart: unless-stopped
+    expose:
+      - "8080"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: ekzamen_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - ekzamen_net
+    restart: unless-stopped
+
+networks:
+  ekzamen_net:
+    driver: bridge
