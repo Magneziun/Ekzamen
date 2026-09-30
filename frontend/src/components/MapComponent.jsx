@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap, LayersControl } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import MarkerPopup from './MarkerPopup';
@@ -343,7 +343,7 @@ const MapComponent = () => {
 
   const handleSelectFromPanel = (post) => {
     if (mapRef.current) {
-      mapRef.current.flyTo([post.latitude, post.longitude], 12, { duration: 1 });
+      mapRef.current.flyTo([post.latitude, post.longitude], 18, { duration: 1 });
     }
   };
 
@@ -357,10 +357,22 @@ const MapComponent = () => {
           ref={mapRef}
           attributionControl={false}
         >
-<TileLayer
-  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-/>
+<LayersControl position="topright">
+  <LayersControl.BaseLayer checked name="Схема">
+    <TileLayer
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      className="osm-dark"
+    />
+  </LayersControl.BaseLayer>
+
+  <LayersControl.BaseLayer name="Спутник">
+    <TileLayer
+      url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+      attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    />
+  </LayersControl.BaseLayer>
+</LayersControl>
           <MapEvents onMapRightClick={handleMapRightClick}>
             {posts.map((post) => (
               <PostMarker

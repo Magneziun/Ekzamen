@@ -201,6 +201,7 @@ body {
   flex-direction: column;
   height: 100vh;
   font-family: sans-serif;
+  position: relative;
 }
 
 .map-header {
@@ -310,22 +311,37 @@ body {
 }
 /* ====== Нижняя панель с локациями ====== */
 .locations-panel {
-  background: #484848;
-  border-top: 1px solid #5a5a5a;
-  flex-shrink: 0;
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
   height: 220px;
+  max-height: 45vh;
+
+  background: rgba(0, 0, 0, 0.6); 
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
   display: flex;
   flex-direction: column;
-  transition: height 0.25s ease;
+  overflow: hidden;
+  transition: height 0.25s ease, left 0.25s ease, right 0.25s ease;
   color: #ffffff;
+  z-index: 500;
 }
 
 .locations-panel.expanded {
+  left: 0;
+  right: 0;
+  bottom: 0;
   height: 100vh;
-  position: fixed;
-  inset: 0;
+  max-height: 100vh;
+  border-radius: 0;
   z-index: 5000;
-  border-top: none;
 }
 
 .locations-panel-header {
@@ -334,8 +350,9 @@ body {
   justify-content: space-between;
   gap: 8px;
   padding: 10px 16px;
-  border-bottom: 1px solid #5a5a5a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   flex-shrink: 0;
+  background: transparent;
 }
 
 .locations-panel-title {
@@ -357,7 +374,7 @@ body {
   color: #fff;
   font-size: 11px;
   padding: 2px 8px;
-  border-radius: 10px;
+  border-radius: 4px;
   font-weight: 600;
   min-width: 22px;
   text-align: center;
@@ -368,7 +385,7 @@ body {
   height: 34px;
   border-radius: 8px;
   border: none;
-  background: #5a5a5a;
+  background: rgba(255, 255, 255, 0.08);
   color: #ffffff;
   cursor: pointer;
   font-size: 16px;
@@ -379,12 +396,8 @@ body {
   transition: background 0.15s;
   flex-shrink: 0;
 }
-.locations-toggle:hover {
-  background: #6a6a6a;
-}
-.locations-toggle:active {
-  background: #941b1b;
-}
+.locations-toggle:hover { background: rgba(255, 255, 255, 0.16); }
+.locations-toggle:active { background: #941b1b; }
 
 .locations-list {
   flex: 1;
@@ -394,7 +407,7 @@ body {
   flex-direction: column;
   gap: 8px;
   scrollbar-width: thin;
-  scrollbar-color: #5a5a5a transparent;
+  scrollbar-color: #404040 transparent;
   -webkit-overflow-scrolling: touch;
 }
 .locations-list::-webkit-scrollbar {
@@ -425,8 +438,8 @@ body {
   align-items: flex-start;
   gap: 4px;
   padding: 10px 14px;
-  background: #3a3a3a;
-  border: 1px solid #5a5a5a;
+  background: rgba(11, 11, 11);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   color: #e0e0e0;
   cursor: pointer;
@@ -435,11 +448,11 @@ body {
   transition: background 0.15s, border-color 0.15s;
 }
 .location-item-btn:hover {
-  background: #555555;
+  background: rgba(43, 9, 9);
   border-color: #941b1b;
 }
 .location-item-btn:active {
-  background: #2d2d2d;
+  background: rgb(163, 0, 0);
 }
 
 .location-item-title {
@@ -479,7 +492,11 @@ body {
 /* ====== Мобильная адаптация ====== */
 @media (max-width: 640px) {
   .locations-panel {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
     height: 180px;
+    max-height: 40vh;
   }
   .locations-list {
     padding: 8px 12px 12px;
@@ -500,7 +517,43 @@ body {
     font-size: 16px;
   }
 }
-/* Тёмная тема для карты */
-.leaflet-tile-pane {
+/* Тёмная тема только для слоя OpenStreetMap */
+.osm-dark {
   filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9);
 }
+
+/* ====== Переключатель слоёв карты ====== */
+.leaflet-control-layers {
+  background: rgba(0, 0, 0, 0.634);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 10px;
+  font-family: 'Segoe UI', Tahoma, sans-serif ;
+  font-size: 13px ;
+}
+
+.leaflet-control-layers-list {
+  color: #ffffff;
+}
+
+.leaflet-control-layers-base label,
+.leaflet-control-layers-overlays label {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 4px 2px !important;
+  color: #ffffff !important;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.leaflet-control-layers-base label:hover,
+.leaflet-control-layers-overlays label:hover {
+  color: #ffa095 !important;
+}
+
+.leaflet-control-layers-base input,
+.leaflet-control-layers-overlays input {
+  accent-color: rgba(148, 27, 27, 0.89);
+  cursor: pointer;
+}
+
