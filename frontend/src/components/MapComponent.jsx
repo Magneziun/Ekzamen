@@ -343,7 +343,7 @@ const MapComponent = () => {
 
   const handleSelectFromPanel = (post) => {
     if (mapRef.current) {
-      mapRef.current.flyTo([post.latitude, post.longitude], 16, { duration: 1 });
+      mapRef.current.flyTo([post.latitude, post.longitude], 17, { duration: 1 });
     }
   };
 
