@@ -1,0 +1,118 @@
+.welcome-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Фоновое изображение — можно заменить на своё */
+  background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Затемняющая плёнка поверх фото */
+.welcome-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(20, 20, 20, 0.65) 50%,
+    rgba(148, 27, 27, 0.55) 100%
+  );
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* Контент поверх оверлея */
+.welcome-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 720px;
+  padding: 40px 24px;
+  animation: welcomeFadeIn 0.9s ease;
+}
+
+.welcome-title {
+  font-size: clamp(32px, 6vw, 64px);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.welcome-subtitle {
+  font-size: clamp(15px, 2vw, 19px);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin-bottom: 40px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.welcome-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 40px;
+  font-size: 17px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #ffffff;
+  background: #941b1b;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 32px rgba(148, 27, 27, 0.45);
+}
+
+.welcome-button:hover {
+  background: #b32222;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(148, 27, 27, 0.6);
+}
+
+.welcome-button:active {
+  transform: translateY(0);
+}
+
+.welcome-button-arrow {
+  font-size: 20px;
+  transition: transform 0.25s ease;
+}
+
+.welcome-button:hover .welcome-button-arrow {
+  transform: translateX(4px);
+}
+
+@keyframes welcomeFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Мобильная адаптация */
+@media (max-width: 640px) {
+  .welcome-button {
+    padding: 14px 32px;
+    font-size: 16px;
+  }
+
+  .welcome-subtitle {
+    margin-bottom: 32px;
+  }
+}
